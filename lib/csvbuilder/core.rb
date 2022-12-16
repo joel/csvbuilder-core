@@ -12,4 +12,3 @@ require "active_support/core_ext/string"
 
 require "csvbuilder/core/public/model"
 require "csvbuilder/core/public/model/file_model"
-
