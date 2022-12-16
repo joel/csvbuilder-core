@@ -2,6 +2,6 @@
 
 RSpec.describe Csvbuilder::Core do
   it "has a version number" do
-    expect(Csvbuilder::Core::VERSION).not_to be nil
+    expect(Csvbuilder::Core::VERSION).not_to be_nil
   end
 end
