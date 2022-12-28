@@ -1,8 +1,8 @@
 # Csvbuilder::Core
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/csvbuilder/core`. To experiment with that code, run `bin/console` for an interactive prompt.
+[Csvbuilder::Core](https://github.com/joel/csvbuilder-core) is part of the [csvbuilder-collection](https://github.com/joel/csvbuilder)
 
-TODO: Delete this and the text above, and describe your gem
+The core is the shared components used and extended in other extensions. It is the foundation of the gem [csvbuilder](https://github.com/joel/csvbuilder) and carries the library's architecture, and it is not meant to be used alone.
 
 ## Installation
 
@@ -14,9 +14,118 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
     $ gem install csvbuilder-core
 
-## Usage
+# Architecture
 
-TODO: Write usage instructions here
+It is divided into three sections, the public, internal and mixins sections.
+
+![[Screenshot 2022-12-28 at 12.53.59 PM.png]]
+
+# Public
+
+The public exposes the API meant to be used by the other components. The concrete implementation is mainly lying in the Mixins, though.
+
+# Base Attributes
+
+It is the representation of the `CSV` row in `Csvbuilder`, and the common behaviour of a row object.
+
+In `core/concerns/attributes_base`, it exposes three main methods:
+
+1. `original_attributes`
+2. `formatted_attributes`
+3. `source_attributes`
+
+Those methods are collections called on `Attribute`—for instance, `original_attributes` call `Attribute#value` under the hood for the current row.
+
+It can be seen as an Object version of a CSV row.
+
+# Model Attributes
+
+In `core/concerns/model/attributes`, we can find the DSL where columns with the options are defined and stored.
+
+```ruby
+class BasicRowModel
+  include Csvbuilder::Model
+
+  column :alpha
+  column :beta
+end
+```
+
+It also carries the headers and the two methods helping with the formatting.
+
+```ruby
+class BasicRowModel
+  include Csvbuilder::Model
+
+  class << self
+
+    # Used by Csvbuilder::AttributeBase#formatted_value
+    def format_cell(value, column_name, context)
+      "- || * #{column_name} * || -"
+    end
+
+    # Used by Csvbuilder::Model::Header#formatted_header
+    def format_header(column_name, context)
+      "~ #{column_name} ~"
+    end
+  end
+end
+
+header = "Alpha"
+value  = "alpha one"
+
+AttributeBase.new.formatted_value
+# => "- || * alpha one * || -"
+
+Header.new.formatted_header
+# => ~ Alpha ~
+```
+
+Internally calling respectively:
+
+```ruby
+module Csvbuilder
+  module Model
+    class Header
+
+      def formatted_header
+        row_model_class.format_header(column_name, context)
+      end
+
+    end
+  end
+end
+
+```
+
+and
+
+```ruby
+module Csvbuilder
+  class AttributeBase
+
+    def formatted_value
+      @formatted_value ||= row_model_class.format_cell(source_value, column_name, row_model.context)
+    end
+
+  end
+end
+
+```
+
+# Attribute
+
+Represent the cell value.
+
+Can be found here: `core/internal/attribute_base`.
+
+It can represent the value through the three following methods:
+
+1.  `source_value`
+2.  `value`
+3.  `formatted_value`
+
+![[Screenshot 2022-12-28 at 3.23.34 PM.png]]
 
 ## Development
 
