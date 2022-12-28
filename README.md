@@ -2,7 +2,7 @@
 
 [Csvbuilder::Core](https://github.com/joel/csvbuilder-core) is part of the [csvbuilder-collection](https://github.com/joel/csvbuilder)
 
-The core is the shared components used and extended in other extensions. It is the foundation of the gem [csvbuilder](https://github.com/joel/csvbuilder) and carries the library's architecture, and it is not meant to be used alone.
+The core contains the shared components used and extended by the exporter and the importer. It is the foundation of the gem [csvbuilder](https://github.com/joel/csvbuilder) and carries the library's architecture, and it is not meant to be used alone.
 
 ## Installation
 
@@ -16,7 +16,7 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 # Architecture
 
-It is divided into three sections, the public, internal and mixins sections.
+It is organized into three sections, the public, internal and mixins.
 
 <img width="215" alt="Screenshot 2022-12-28 at 12 53 59 PM" src="https://user-images.githubusercontent.com/5789/209835572-01d1a7e5-3175-490c-a166-1b9b74908390.png">
 
@@ -26,7 +26,7 @@ The public exposes the API meant to be used by the other components. The concret
 
 # Base Attributes
 
-It is the representation of the `CSV` row in `Csvbuilder`, and the common behaviour of a row object.
+It represents a `CSV` row in `Csvbuilder`. At the core, it defines the standard behaviour, and those behaviours are specialized in `Export` and `Import` gems.
 
 In `core/concerns/attributes_base`, it exposes three main methods:
 
@@ -35,8 +35,6 @@ In `core/concerns/attributes_base`, it exposes three main methods:
 3. `source_attributes`
 
 Those methods are collections called on `Attribute`—for instance, `original_attributes` call `Attribute#value` under the hood for the current row.
-
-It can be seen as an Object version of a CSV row.
 
 # Model Attributes
 
@@ -121,8 +119,8 @@ Can be found here: `core/internal/attribute_base`.
 
 It can represent the value through the three following methods:
 
-1.  `source_value`
-2.  `value`
+1.  `source_value` unchanged value
+2.  `value` often the formatted_value, but some logic can be added.
 3.  `formatted_value`
 
 <img width="725" alt="Screenshot 2022-12-28 at 3 23 34 PM" src="https://user-images.githubusercontent.com/5789/209835649-373ebaad-ed53-420d-8a7a-1b93c782d066.png">
