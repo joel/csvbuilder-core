@@ -13,9 +13,22 @@ module Csvbuilder
       @row_model   = row_model
     end
 
+    # @return [Object] the value with formatting applied
     def formatted_value
       @formatted_value ||= row_model_class.format_cell(source_value, column_name, row_model.context)
     end
+
+    # @return [Object] the value
+    def value
+      raise NotImplementedError
+    end
+
+    # @return [Object] the unchanged value from the source
+    def source_value
+      raise NotImplementedError
+    end
+
+    protected
 
     def row_model_class
       row_model.class
