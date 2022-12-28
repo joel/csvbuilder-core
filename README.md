@@ -18,7 +18,7 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 It is divided into three sections, the public, internal and mixins sections.
 
-![[Screenshot 2022-12-28 at 12.53.59 PM.png]]
+<img width="215" alt="Screenshot 2022-12-28 at 12 53 59 PM" src="https://user-images.githubusercontent.com/5789/209835572-01d1a7e5-3175-490c-a166-1b9b74908390.png">
 
 # Public
 
@@ -125,7 +125,7 @@ It can represent the value through the three following methods:
 2.  `value`
 3.  `formatted_value`
 
-![[Screenshot 2022-12-28 at 3.23.34 PM.png]]
+<img width="725" alt="Screenshot 2022-12-28 at 3 23 34 PM" src="https://user-images.githubusercontent.com/5789/209835649-373ebaad-ed53-420d-8a7a-1b93c782d066.png">
 
 ## Development
 
