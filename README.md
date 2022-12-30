@@ -76,7 +76,7 @@ AttributeBase.new.formatted_value
 # => "- || * alpha one * || -"
 
 AttributeBase.new.value # It can carry some logic.
-# => "alpha one"
+# => "- || * alpha one * || -"
 
 AttributeBase.new.source_value # Will be always the raw value
 # => "alpha one"
