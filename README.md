@@ -4,6 +4,10 @@
 
 The core contains the shared components used and extended by the exporter and the importer. It is the foundation of the gem [csvbuilder](https://github.com/joel/csvbuilder) and carries the library's architecture, and it is not meant to be used alone.
 
+See:
+ - [Csvbuilder::Exporter](https://github.com/joel/csvbuilder-exporter)
+ - [Csvbuilder::Importer](https://github.com/joel/csvbuilder-importer)
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
