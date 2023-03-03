@@ -11,7 +11,7 @@ module Csvbuilder
         describe "::column_names" do
           subject(:column_names) { klass.column_names }
 
-          specify { expect(column_names).to eql %i[alpha beta] }
+          specify { expect(column_names).to eql %i[alpha beta gamma] }
         end
 
         describe "::format_header" do
@@ -25,9 +25,9 @@ module Csvbuilder
         end
 
         describe "::headers" do
-          subject(:row_model_headers) { klass.headers }
+          subject(:row_model_headers) { klass.headers({ foo: :bar }) }
 
-          let(:headers) { [:alpha, "Beta Two"] }
+          let(:headers) { ["Alpha", "Beta Two", "#<OpenStruct foo=:bar> Gamma"] }
 
           it "returns an array with header column names" do
             expect(row_model_headers).to eql headers

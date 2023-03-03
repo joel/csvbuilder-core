@@ -16,11 +16,18 @@ module Csvbuilder
       end
 
       def value
-        options[:header] || formatted_header
+        case options[:header]
+        when Proc
+          return options[:header].call(column_name, context)
+        when String
+          return options[:header]
+        end
+
+        formatted_header(column_name.to_s.humanize)
       end
 
-      def formatted_header
-        row_model_class.format_header(column_name, context)
+      def formatted_header(header_name)
+        row_model_class.format_header(header_name, context)
       end
     end
   end
