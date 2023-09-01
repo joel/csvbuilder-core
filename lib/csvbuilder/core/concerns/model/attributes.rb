@@ -15,6 +15,10 @@ module Csvbuilder
         self.class.headers(context)
       end
 
+      def column_header(column_header)
+        self.class.column_header(column_header, context)
+      end
+
       class_methods do
         # @return [Array<Symbol>] column names for the row model
         def column_names
@@ -30,7 +34,7 @@ module Csvbuilder
         # @param [Hash, OpenStruct] context name of column to check
         # @return [Array] column headers for the row model
         def headers(context = {})
-          column_names.map { |column_name| Header.new(column_name, self, context).value }
+          column_names.map { |column_name| column_header(column_name, context) }
         end
 
         # Safe to override
@@ -50,6 +54,13 @@ module Csvbuilder
 
         def columns
           self._columns ||= {}
+        end
+
+        # @param context [Hash, OpenStruct] name of column to check
+        # @param column_name [Symbol] the cell's column_name
+        # @return [String] column header
+        def column_header(column_name, context = {})
+          Header.new(column_name, self, context).value
         end
 
         protected
