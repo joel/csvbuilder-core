@@ -15,6 +15,10 @@ module Csvbuilder
         self.class.headers(context)
       end
 
+      def column_header(column_header)
+        self.class.column_header(column_header, context)
+      end
+
       class_methods do
         # @return [Array<Symbol>] column names for the row model
         def column_names
@@ -52,14 +56,14 @@ module Csvbuilder
           self._columns ||= {}
         end
 
-        protected
-
         # @param context [Hash, OpenStruct] name of column to check
         # @param column_name [Symbol] the cell's column_name
         # @return [String] column header
         def column_header(column_name, context = {})
           Header.new(column_name, self, context).value
         end
+
+        protected
 
         # Adds column to the row model
         #
