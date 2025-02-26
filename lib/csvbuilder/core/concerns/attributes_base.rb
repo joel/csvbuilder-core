@@ -56,8 +56,8 @@ module Csvbuilder
       array_to_block_hash(column_names) { |column_name| attribute_objects[column_name].public_send(attribute_method) }
     end
 
-    def array_to_block_hash(array, &block)
-      array.zip(array.map(&block)).to_h
+    def array_to_block_hash(array, &)
+      array.zip(array.map(&)).to_h
     end
 
     class_methods do
@@ -69,10 +69,10 @@ module Csvbuilder
 
       # Define default attribute method for a column
       # @param column_name [Symbol] the cell's column_name
-      def define_attribute_method(column_name, &block)
+      def define_attribute_method(column_name, &)
         return if method_defined? column_name
 
-        define_proxy_method(column_name, &block)
+        define_proxy_method(column_name, &)
       end
 
       def ensure_attribute_method

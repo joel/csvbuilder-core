@@ -9,8 +9,8 @@ module Csvbuilder
         @proxy ||= Module.new.tap { |mod| include mod }
       end
 
-      def define_proxy_method(*args, &block)
-        proxy.send(:define_method, *args, &block)
+      def define_proxy_method(*, &)
+        proxy.send(:define_method, *, &)
       end
     end
   end
