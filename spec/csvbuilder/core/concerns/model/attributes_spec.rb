@@ -36,7 +36,7 @@ module Csvbuilder
 
         describe "::column_header" do
           it "returns the expected header for the given column name" do
-            {alpha: "Alpha", beta: "Beta Two", gamma: "#<OpenStruct foo=:bar> Gamma"}.each do |attr, header|
+            { alpha: "Alpha", beta: "Beta Two", gamma: "#<OpenStruct foo=:bar> Gamma" }.each do |attr, header|
               expect(klass.column_header(attr, { foo: :bar })).to eql header
             end
           end

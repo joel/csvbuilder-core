@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.4] - 2025-02-26
+
+- Adding Csvbuilder::Model::Attributes#column_header by [Michael Keene](https://github.com/Michaelkeene)
+
 ## [0.1.3] - 2023-03-03
 
 Add Header default formatting
